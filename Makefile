@@ -38,3 +38,8 @@ LIBS = -L$(riscv_dir)/lib -Wl,-rpath,$(riscv_dir)/lib -lfesvr -lpthread
 
 emulator: emulator.cc TestHarness.h riscv-local/lib/libfesvr.so
 	$(CXX) $(CXXFLAGS) $(INCLUDES) emulator.cc -o emulator $(LIBS)
+
+.PHONY: test
+
+test: emulator
+	./emulator +cycle-count ./dhrystone.riscv
