@@ -1,0 +1,9 @@
+[submodule "essent"]
+	path = essent
+	url = git@github.com:ucsc-vama/essent.git
+[submodule "firrtl-sig"]
+	path = firrtl-sig
+	url = git@github.com:ucsc-vama/firrtl-sig.git
+[submodule "rocket-chip"]
+	path = rocket-chip
+	url = https://github.com/chipsalliance/rocket-chip.git
