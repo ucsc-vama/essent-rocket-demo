@@ -1,3 +1,4 @@
 .riscv-fesvr/build
 riscv-local
 freechips.rocketchip.system.DefaultConfig.fir
+TestHarness.h
