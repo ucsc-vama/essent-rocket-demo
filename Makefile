@@ -7,22 +7,22 @@ ifeq ($(UNAME_OS),Darwin)
 	CXXFLAGS += $(CLANG_FLAGS)
 endif
 
-INCLUDES = -I../csrc -I$(riscv_dir)/include -I./firrtl-sig
+INCLUDES = -I$(riscv_dir)/include -I./firrtl-sig
 LIBS = -L$(riscv_dir)/lib -Wl,-rpath,$(riscv_dir)/lib -lfesvr -lpthread
 
 
 # Default target, the emulator for Rocket Chip
-emulator: emulator.cc TestHarness.h riscv-local/lib/libfesvr.so
+emulator: emulator.cc TestHarness.h riscv-local/lib/libfesvr.a
 	$(CXX) $(CXXFLAGS) $(INCLUDES) emulator.cc -o emulator $(LIBS)
 
 
 # Build riscv-fesvr (needed to interface with Rocket Chip)
 riscv_dir = $(abspath ./riscv-local)
 
-riscv-local/lib/libfesvr.so:
-	git submodule update --init riscv-fesvr
+riscv-local/lib/libfesvr.a:
+	git submodule update --init riscv-isa-sim
 	mkdir -p $(riscv_dir)
-	cd riscv-fesvr; mkdir build; cd build; ../configure --prefix=$(riscv_dir) --target=riscv64-unknown-elf; make install 
+	cd riscv-isa-sim; mkdir build; cd build; ../configure --prefix=$(riscv_dir) --target=riscv64-unknown-elf --without-boost --without-boost-asio --without-boost-regex; make install
 
 
 # Run Rocket Chip to get .fir (FIRRTL) file of design
