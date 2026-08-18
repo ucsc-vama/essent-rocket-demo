@@ -1,5 +1,5 @@
 # Compile flags used to build emulator
-CXXFLAGS = -O3 -std=c++11
+CXXFLAGS = -O3 -std=c++17
 CLANG_FLAGS = -fno-slp-vectorize -fbracket-depth=1024
 
 UNAME_OS := $(shell uname -s)
@@ -29,10 +29,10 @@ riscv-local/lib/libfesvr.a:
 generated_dir = $(abspath rocket-chip/emulator/generated-src)
 fir_filename = freechips.rocketchip.system.DefaultConfig.fir
 
-rocket-chip/chisel3/README.md:
+rocket-chip/hardfloat/README.md:
 	git submodule update --init --recursive rocket-chip
 
-$(generated_dir)/$(fir_filename): rocket-chip/chisel3/README.md
+$(generated_dir)/$(fir_filename): rocket-chip/hardfloat/README.md
 	cd rocket-chip/emulator; RISCV=$(riscv_dir) make $(generated_dir)/$(fir_filename)
 
 $(fir_filename): $(generated_dir)/$(fir_filename)
